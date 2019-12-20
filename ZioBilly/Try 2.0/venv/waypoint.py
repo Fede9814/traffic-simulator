@@ -7,8 +7,9 @@ class Entity(pg.sprite.Sprite):
     def __init__(self, pos, waypoints):
         super().__init__()
         # carica la macchinina
+        self.background_image = pg.image.load('D:/traffic-simulator/ZioBilly/Try 2.0/venv/img/terrain.jpg')
         self.image = pg.image.load('D:/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum.png')
-        
+
         # centro di massa della macchina
         self.rect = self.image.get_rect(center=pos)
         
@@ -46,7 +47,6 @@ class Entity(pg.sprite.Sprite):
         # se la distanza è minore di n pixel
         if distance <= 2:  # We're closer than 2 pixels.
 
-                
             # aumenta l'indice dei waypoint e scambia la direzione verso la quale mi muovo
             self.waypoint_index = (self.waypoint_index + 1) % len(self.waypoints)
             
@@ -66,36 +66,31 @@ class Entity(pg.sprite.Sprite):
         # la posizione si aggiorna in base alla velocità
         self.pos += self.vel
         
-        # il cnetro di massa diventa costantemente la posizione
+        # il centro di massa diventa costantemente la posizione
         self.rect.center = self.pos
 
+waypoints = [(475, 580), (475, 540), (475, 500)]
+terreno = Entity((100, 300), waypoints)
+screen = pg.display.set_mode((800, 600))
+clock = pg.time.Clock()
+all_sprites = pg.sprite.Group(terreno)
 
-def main():
-    screen = pg.display.set_mode((640, 480))
-    clock = pg.time.Clock()
-    waypoints = [(200, 100), (500, 400), (100, 300), (200, 300), (100, 80)]
-    all_sprites = pg.sprite.Group(Entity((100, 300), waypoints))
+done = False
 
-    done = False
+while not done:
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            done = True
+    screen.blit(terreno.background_image, [0, 0])
+    all_sprites.update()
+    all_sprites.draw(screen)
+    
+    #il for che proietta i waypoint, cioè i punti del percorso
+    for point in waypoints:
+        pg.draw.rect(screen, (90, 200, 40), (point, (0, 0)))
 
-    while not done:
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                done = True
+    pg.display.flip()
+    clock.tick(60)
 
-        all_sprites.update()
-        screen.fill((30, 30, 30))
-        all_sprites.draw(screen)
-        
-        #il for che proietta i waypoint, cioè i punti del percorso
-        for point in waypoints:
-            pg.draw.rect(screen, (90, 200, 40), (point, (0, 0)))
-
-        pg.display.flip()
-        clock.tick(60)
-
-
-if __name__ == '__main__':
-    pg.init()
-    main()
-    pg.quit()
+pg.init()
+pg.quit()
