@@ -5,14 +5,14 @@ color_line = (255,255,255)
 filler_color = (0,0,0)
 width = 2000
 heigth = 2000
+x, y = 1000, 1000
+
 
 class Terrain(object):
     
     def __init__(self):
-        surface = pygame.Surface((1900, 800), flags=0)
-        terrain = pygame.display.set_mode((2000,2000))
-        pygame.transform.scale(surface, (1900,800))
-        terrain.center(1000,1000)
+        terrain = pygame.display.set_mode((2000,2000), pygame.RESIZABLE)
+        terrain.blit(terrain, (x - terrain.get_width() // 2, y - terrain.get_height() // 2 ))
         
         terrain.fill(filler_color)
 
