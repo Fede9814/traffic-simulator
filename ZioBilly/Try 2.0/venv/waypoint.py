@@ -7,8 +7,8 @@ class Entity(pg.sprite.Sprite):
     def __init__(self, pos, waypoints):
         super().__init__()
         # carica la macchinina
-        self.background_image = pg.image.load('D:/traffic-simulator/ZioBilly/Try 2.0/venv/img/terrain.jpg')
-        self.image = pg.image.load('D:/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum.png')
+        self.background_image = pg.image.load('C:/Users/PC/Desktop/traffic-simulator/ZioBilly/Try 2.0/venv/img/terrain.jpg')
+        self.image = pg.image.load('C:/Users/PC/Desktop/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum.png')
 
         # centro di massa della macchina
         self.rect = self.image.get_rect(center=pos)
@@ -17,7 +17,7 @@ class Entity(pg.sprite.Sprite):
         self.vel_max = Vector2(0, 0)
         
         # velocità effettiva
-        self.max_speed = 4
+        self.max_speed = 50
         
         # locka il vettore sul centro di massa
         self.pos = Vector2(pos)
@@ -44,13 +44,13 @@ class Entity(pg.sprite.Sprite):
         # inizializza il vettore e lo porta a valore 1
         heading.normalize_ip()
         
-        # se la distanza è minore di n pixel
+        # se la distanza e minore di n pixel
         if distance <= 2:  # We're closer than 2 pixels.
 
             # aumenta l'indice dei waypoint e scambia la direzione verso la quale mi muovo
             self.waypoint_index = (self.waypoint_index + 1) % len(self.waypoints)
             
-            # se il modulo (quindi il valore della velocità) è uguale alla distanza porta l'indice a 0
+            # se il modulo (quindi il valore della velocita) e uguale alla distanza porta l'indice a 0
             self.target = self.waypoints[self.waypoint_index]
             
         # se la distanza è minore (quindi sei vicino) del raggio dal centro di massa    
@@ -69,8 +69,13 @@ class Entity(pg.sprite.Sprite):
         # il centro di massa diventa costantemente la posizione
         self.rect.center = self.pos
 
-waypoints = [(475, 580), (475, 540), (475, 500)]
-terreno = Entity((100, 300), waypoints)
+waypoints = []
+x = 600
+while x != 0:
+    waypoints.append([475, x])
+    x = x - 1
+
+terreno = Entity((475, 601), waypoints)
 screen = pg.display.set_mode((800, 600))
 clock = pg.time.Clock()
 all_sprites = pg.sprite.Group(terreno)
@@ -85,7 +90,7 @@ while not done:
     all_sprites.update()
     all_sprites.draw(screen)
     
-    #il for che proietta i waypoint, cioè i punti del percorso
+    #il for che proietta i waypoint, cioe i punti del percorso
     for point in waypoints:
         pg.draw.rect(screen, (90, 200, 40), (point, (0, 0)))
 
