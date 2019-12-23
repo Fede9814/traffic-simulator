@@ -2,19 +2,20 @@ import random
 import numpy
 import pygame
 
-nord = 1
-sud = 2
-est = 3
-ovest = 4
+nord = None
+sud = None
+est = None
+ovest = None
+
 direzione = [nord, sud, est, ovest]
+
 velMax = 50
-frena = 0
+velMin = 0
 
 
 class Veicolo():
     
     def __init__(self):
-        super().__init__()
         
         # 25% di probabilità di entrare da una strada qualsiasi
         self.entra = numpy.random.choice(direzione, p=[0.25, 0.25, 0.25, 0.25])

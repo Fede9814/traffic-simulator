@@ -1,5 +1,5 @@
 import pygame as pg
-from pygame.math import Vector2
+import pg.math
 
 
 class Entity(pg.sprite.Sprite):
@@ -7,12 +7,13 @@ class Entity(pg.sprite.Sprite):
     def __init__(self, pos, waypoints):
         super().__init__()
         # carica la macchinina
-        self.background_image = pg.image.load('C:/Users/PC/Desktop/traffic-simulator/ZioBilly/Try 2.0/venv/img/terrain.jpg')
-        self.image = pg.image.load('C:/Users/PC/Desktop/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum.png')
+        self.background_image = pg.image.load('A:/DAM/Traffico/traffic-simulator/ZioBilly/Try 2.0/venv/img/terrain.jpg')
+        self.image = pg.image.load('A:/DAM/Traffico/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum.png')
 
         # centro di massa della macchina
         self.rect = self.image.get_rect(center=pos)
-        
+        self.coordinate = pos.getX()
+
         # vettore velocità
         self.vel_max = Vector2(0, 0)
         
