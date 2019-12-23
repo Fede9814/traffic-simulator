@@ -41,7 +41,6 @@ class Waypoint():
 						token = token - 1
 					self.arrayDXdri.append(arrayToken)
 
-		
-
+	def 
 
 Waypoint()
