@@ -3,6 +3,11 @@ import pygame
 
 arrayDritti = [(325, 0), (475, 600), (800, 225), (0, 375)]
 arraySX = [(375, 0), (425, 600), (800, 275), (0, 325)]
+nord = 1
+sud = 2
+est = 3
+ovest = 4
+cardinali = [nord, sud, est, ovest]
 
 class Waypoint():
 	def __init__(self):
@@ -17,7 +22,6 @@ class Waypoint():
 					arrayToken = []
 					for i in range(800):
 						arrayToken.append([i, x[1]])
-						print(arrayToken)
 					self.arrayDXdri.append(arrayToken)
 				else:
 					token = x[0]
@@ -41,6 +45,12 @@ class Waypoint():
 						token = token - 1
 					self.arrayDXdri.append(arrayToken)
 
-	def 
-
-Waypoint()
+	def goDritto (self, spawnPT):
+		token = 1
+		for x in cardinali:
+			if(x == spawnPT):
+				index = cardinali.index(token)
+				waypoint = self.arrayDXdri[index]
+				return waypoint
+			token = token + 1
+			
