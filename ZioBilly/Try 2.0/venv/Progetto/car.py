@@ -9,8 +9,6 @@ sud = 2
 est = 3
 ovest = 4
 cardinali = [nord, sud, est, ovest]
-velMax = 50
-frena = 0
 arrayDritti = [(325, 0), (475, 600), (800, 225), (0, 375)]
 arraySX = [(375, 0), (425, 600), (800, 275), (0, 325)]
 
@@ -43,96 +41,279 @@ class Car(pygame.sprite.Sprite):
 
 		
 		self.rect = self.image.get_rect(center=pos)
+		
 		self.pos = Vector2(pos)
 
 		if(self.index == 0):
 			self.image = pygame.transform.rotate(self.image, 180)
+			self.vision = self.image.get_rect(center=self.rect.midbottom)
+			self.vision.height = 20
+			self.vision.center = self.rect.midbottom
 
 		if(self.index == 1):
 			self.image = pygame.transform.rotate(self.image, 0)
+			self.vision = self.image.get_rect(center=self.rect.midtop)
+			self.vision.height = 20
+			self.vision.center = self.rect.midtop
 
 		if(self.index == 2):
 			self.image = pygame.transform.rotate(self.image, 90)
+			self.vision = self.image.get_rect(center=self.rect.midleft)
+			self.vision.width = 20
 
 		if(self.index == 3):
 			self.image = pygame.transform.rotate(self.image, 270)
+			self.vision = self.image.get_rect(center=self.rect.midright)
+			self.vision.width = 20
 
 
-	def update(self):
-		if(self.direzione == "DX"): 
-
-			if(self.index == 0):
-				self.pos.y += 1
-				self.rect = self.image.get_rect(center=self.pos)
-				if(self.pos.y == 600):
+	def update(self, passa_NS_DX, passa_EO_DX, passa_EO_SX, passa_NS_SX, cars):
+		for brum in cars:
+			if(brum.rect != self.rect):
+				if(self.rect.colliderect(brum.rect) == True):
 					self.kill()
+					brum.kill()
+					print("Incidente")
+							
+		if(self.direzione == "DX"):			
+			if(self.index == 0):
+				check = 0
+				safe = 0
+				for brum in cars:
+					if(brum.rect != self.rect and brum.vision != self.vision):
+						if(self.vision.colliderect(brum.rect) == True):
+							check = 1
+							safe = brum
+							if(self.vision.colliderect(safe.rect) == False):
+								check = 0
+				if(check == 1):
+					self.rect.center = (self.rect.center[0], self.rect.center[1])
+				else:
+					if(passa_NS_DX == False and self.rect.center[1] == 145):	
+						self.rect.center = (self.rect.center[0], self.rect.center[1])
+					else:
+						self.rect.center = (self.rect.center[0], self.rect.center[1] + 1)
+					self.rect = self.image.get_rect(center=self.rect.center)
+					self.vision = self.image.get_rect(center=self.rect.midbottom)
+					self.vision.height = 20
+					self.vision.center = self.rect.midbottom
+					if(self.rect.center[1] == 600):
+						self.kill()
 
 			if(self.index == 1):
-				self.pos.y -= 1
-				self.rect = self.image.get_rect(center=self.pos)
-				if(self.pos.y == 0):
-					self.kill()
+				check = 0
+				safe = 0
+				for brum in cars:
+					if(brum.rect != self.rect and brum.vision != self.vision):
+						if(self.vision.colliderect(brum.rect) == True):
+							check = 1
+							safe = brum
+							if(self.vision.colliderect(safe.rect) == False):
+								check = 0
+				if(check == 1):
+					self.rect.center = (self.rect.center[0], self.rect.center[1])
+				else:
+					if(passa_NS_DX == False and self.rect.center[1] == 455):
+						#self.pos.y -= 0
+						self.rect.center = (self.rect.center[0], self.rect.center[1])
+					else:
+						#self.pos.y -= 1
+						self.rect.center = (self.rect.center[0], self.rect.center[1] - 1)
+					self.rect = self.image.get_rect(center=self.rect.center)
+					self.vision = self.image.get_rect(center=self.rect.midtop)
+					self.vision.height = 20
+					self.vision.center = self.rect.midtop
+					if(self.rect.center[1] == 0):
+						self.kill()
 
 			if(self.index == 2):
-				self.pos.x -= 1
-				self.rect = self.image.get_rect(center=self.pos)
-				if(self.pos.x == 0):
-					self.kill()
+				check = 0
+				safe = 0
+				for brum in cars:
+					if(brum.rect != self.rect and brum.vision != self.vision):
+						if(self.vision.colliderect(brum.rect) == True):
+							check = 1
+							safe = brum
+							if(self.vision.colliderect(safe.rect) == False):
+								check = 0
+				if(check == 1):
+					self.rect.center = (self.rect.center[0], self.rect.center[1])
+				else:
+					if(passa_EO_DX == False and self.rect.center[0] == 555):
+						self.rect.center = (self.rect.center[0], self.rect.center[1])
+					else:
+						self.rect.center = (self.rect.center[0] - 1, self.rect.center[1])
+					self.rect = self.image.get_rect(center=self.rect.center)
+					self.vision = self.image.get_rect(center=self.rect.midleft)
+					self.vision.width = 20
+					self.vision.center = self.rect.midleft
+					if(self.rect.center[0] == 0):
+						self.kill()
 
 			if(self.index == 3):
-				self.pos.x += 1
-				self.rect = self.image.get_rect(center=self.pos)
-				if(self.pos.x == 800):
-					self.kill()
+				check = 0
+				safe = 0
+				for brum in cars:
+					if(brum.rect != self.rect and brum.vision != self.vision):
+						if(self.vision.colliderect(brum.rect) == True):
+							check = 1
+							safe = brum
+							if(self.vision.colliderect(safe.rect) == False):
+								check = 0
+				if(check == 1):
+					self.rect.center = (self.rect.center[0], self.rect.center[1])
+				else:
+					if(passa_EO_DX == False and self.rect.center[0] == 243):
+						self.rect.center = (self.rect.center[0], self.rect.center[1])
+					else:
+						self.rect.center = (self.rect.center[0] + 1, self.rect.center[1])
+					self.rect = self.image.get_rect(center=self.rect.center)
+					self.vision = self.image.get_rect(center=self.rect.midright)
+					self.vision.width = 20
+					self.vision.center = self.rect.midright
+					if(self.rect.center[0] == 800):
+						self.kill()
 
 		if(self.direzione == "SX"): 
 
 			if(self.index == 0):
-				if(self.pos.y < 325):
-					self.pos.y += 1
-					if(self.pos.y == 325):
-						self.image = pygame.transform.rotate(self.image, 90)
-						self.pos.x += 1
+				check = 0
+				safe = 0
+				for brum in cars:
+					if(brum.rect != self.rect and brum.vision != self.vision):
+						if(self.vision.colliderect(brum.rect) == True):
+							check = 1
+							safe = brum
+							if(self.vision.colliderect(safe.rect) == False):
+								check = 0
+				if(check == 1):
+					self.rect.center = (self.rect.center[0], self.rect.center[1])
 				else:
-					self.pos.x += 1
-				self.rect = self.image.get_rect(center=self.pos)
-				if(self.pos.x == 800):
+					if(passa_NS_SX == False and self.rect.center[1] == 145):
+						self.rect.center = (self.rect.center[0], self.rect.center[1])
+					else:
+						if(self.rect.center[1] < 325):
+							self.rect.center = (self.rect.center[0], self.rect.center[1] + 1)
+							if(self.rect.center[1] == 325):
+								self.image = pygame.transform.rotate(self.image, 90)
+								self.rect.center = (self.rect.center[0]  + 1, self.rect.center[1])
+						else:
+							self.rect.center = (self.rect.center[0] + 1, self.rect.center[1])
+				self.rect = self.image.get_rect(center=self.rect.center)
+				if(self.rect.center[1] < 325):
+					self.vision = self.image.get_rect(center=self.rect.midbottom)
+					self.vision.height = 20
+					self.vision.center = self.rect.midbottom
+				else:
+					self.vision = self.image.get_rect(center=self.rect.midright)
+					self.vision.width = 20
+					self.vision.center = self.rect.midright
+				if(self.rect.center[0] == 800):
 					self.kill()
 
 			if(self.index == 1):
-				if(self.pos.y > 275):
-					self.pos.y -= 1
-					if(self.pos.y == 275):
-						self.image = pygame.transform.rotate(self.image, 90)
-						self.pos.x -= 1
+				check = 0
+				safe = 0
+				for brum in cars:
+					if(brum.rect != self.rect and brum.vision != self.vision):
+						if(self.vision.colliderect(brum.rect) == True):
+							check = 1
+							safe = brum
+							if(self.vision.colliderect(safe.rect) == False):
+								check = 0
+				if(check == 1):
+					self.rect.center = (self.rect.center[0], self.rect.center[1])
 				else:
-					self.pos.x -= 1
-				self.rect = self.image.get_rect(center=self.pos)
-				if(self.pos.x == 0):
+					if(passa_NS_SX == False and self.rect.center[1] == 455):
+						self.rect.center = (self.rect.center[0], self.rect.center[1])
+					else:
+						if(self.rect.center[1] > 275):
+							self.rect.center = (self.rect.center[0], self.rect.center[1] - 1)
+							if(self.rect.center[1] == 275):
+								self.image = pygame.transform.rotate(self.image, 90)
+								self.rect.center = (self.rect.center[0] - 1, self.rect.center[1])
+						else:
+							self.rect.center = (self.rect.center[0] - 1, self.rect.center[1])
+				self.rect = self.image.get_rect(center=self.rect.center)
+				if(self.rect.center[1] > 275):
+					self.vision = self.image.get_rect(center=self.rect.midtop)
+					self.vision.height = 20
+					self.vision.center = self.rect.midtop
+				else:
+					self.vision = self.image.get_rect(center=self.rect.midleft)
+					self.vision.width = 20
+					self.vision.center = self.rect.midleft
+				if(self.rect.center[0] == 0):
 					self.kill()
 
 			if(self.index == 2):
-				if(self.pos.x > 375):
-					self.pos.x -= 1
-					if(self.pos.x == 375):
-						self.image = pygame.transform.rotate(self.image, 90)
-						self.pos.y += 1
+				check = 0
+				safe = 0
+				for brum in cars:
+					if(brum.rect != self.rect and brum.vision != self.vision):
+						if(self.vision.colliderect(brum.rect) == True):
+							check = 1
+							safe = brum
+							if(self.vision.colliderect(safe.rect) == False):
+								check = 0
+				if(check == 1):
+					self.rect.center = (self.rect.center[0], self.rect.center[1])
 				else:
-					self.pos.y += 1
-				self.rect = self.image.get_rect(center=self.pos)
-				if(self.pos.y == 600):
+					if(passa_EO_SX == False and self.rect.center[0] == 555):
+						self.rect.center = (self.rect.center[0], self.rect.center[1])
+					else:
+						if(self.rect.center[0] > 375):
+							self.rect.center = (self.rect.center[0] - 1, self.rect.center[1])
+							if(self.rect.center[0] == 375):
+								self.image = pygame.transform.rotate(self.image, 90)
+								self.rect.center = (self.rect.center[0], self.rect.center[1] + 1)
+						else:
+							self.rect.center = (self.rect.center[0], self.rect.center[1] + 1)
+				self.rect = self.image.get_rect(center=self.rect.center)
+				if(self.rect.center[0] > 375):
+					self.vision = self.image.get_rect(center=self.rect.midleft)
+					self.vision.width = 20
+					self.vision.center = self.rect.midleft
+				else:
+					self.vision = self.image.get_rect(center=self.rect.midbottom)
+					self.vision.height = 20
+					self.vision.center = self.rect.midbottom
+				if(self.rect.center[1] == 600):
 					self.kill()
 
 			if(self.index == 3):
-				if(self.pos.x < 425):
-					self.pos.x += 1
-					if(self.pos.x == 425):
-						self.image = pygame.transform.rotate(self.image, 90)
-						self.pos.y -= 1
+				check = 0
+				safe = 0
+				for brum in cars:
+					if(brum.rect != self.rect and brum.vision != self.vision):
+						if(self.vision.colliderect(brum.rect) == True):
+							check = 1
+							safe = brum
+							if(self.vision.colliderect(safe.rect) == False):
+								check = 0
+				if(check == 1):
+					self.rect.center = (self.rect.center[0], self.rect.center[1])
 				else:
-					self.pos.y -= 1
-				self.rect = self.image.get_rect(center=self.pos)
-				if(self.pos.y == 0):
+					if(passa_EO_SX == False and self.rect.center[0] == 243):
+						self.rect.center = (self.rect.center[0], self.rect.center[1])
+					else:
+						if(self.rect.center[0] < 425):
+							self.rect.center = (self.rect.center[0] + 1, self.rect.center[1])
+							if(self.rect.center[0] == 425):
+								self.image = pygame.transform.rotate(self.image, 90)
+								self.rect.center = (self.rect.center[0], self.rect.center[1] - 1)
+						else:
+							self.rect.center = (self.rect.center[0], self.rect.center[1] - 1)
+				self.rect = self.image.get_rect(center=self.rect.center)
+				if(self.rect.center[0] < 425):
+					self.vision = self.image.get_rect(center=self.rect.midright)
+					self.vision.width = 20
+					self.vision.center = self.rect.midright
+				else:
+					self.vision = self.image.get_rect(center=self.rect.midtop)
+					self.vision.height = 20
+					self.vision.center = self.rect.midtop
+				if(self.rect.center[1] == 0):
 					self.kill()
 
 
