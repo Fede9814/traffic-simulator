@@ -1,50 +1,59 @@
-from tkinter import Tk, Canvas, Frame, BOTH
+import pygame as py  
 
-"""
-def run_periodically(func, ms):
-    func()
-    root.after(ms, run_periodically, func, ms)
+# define constants  
+WIDTH = 500  
+HEIGHT = 500  
+FPS = 30  
 
-def tick():
-    global count
-    count += 1
-    tick_label.configure(text="count: %d" % count)
+# define colors  
+BLACK = (0 , 0 , 0)  
+GREEN = (0 , 255 , 0)  
 
-count = 0
-root = tk.Tk()
-tick_label = tk.Label(root, text="")
-tick_label.pack(padx=20, pady=20)
+# initialize pygame and create screen  
+py.init()  
+screen = py.display.set_mode((WIDTH , HEIGHT))  
+# for setting FPS  
+clock = py.time.Clock()  
 
-run_periodically(tick, 1000)
+rot = 0  
+rot_speed = 2  
 
-root.mainloop()
-"""
-class Veicolo(Frame):
+# define a surface (RECTANGLE)  
+image_orig = py.Surface((100 , 100))  
+# for making transparent background while rotating an image  
+image_orig.set_colorkey(BLACK)  
+# fill the rectangle / surface with green color  
+image_orig.fill(GREEN)  
+# creating a copy of orignal image for smooth rotation  
+image = image_orig.copy()  
+image.set_colorkey(BLACK)  
+# define rect for placing the rectangle at the desired position  
+rect = image.get_rect()  
+rect.center = (WIDTH // 2 , HEIGHT // 2)  
+# keep rotating the rectangle until running is set to False  
+running = True  
+while running:  
+    # set FPS  
+    clock.tick(FPS)  
+    # clear the screen every time before drawing new objects  
+    screen.fill(BLACK)  
+    # check for the exit  
+    for event in py.event.get():  
+        if event.type == py.QUIT:  
+            running = False  
 
-    def __init__(self):
-        super().__init__()
+    # making a copy of the old center of the rectangle  
+    old_center = rect.center  
+    # defining angle of the rotation  
+    rot = (rot + rot_speed) % 360  
+    # rotating the orignal image  
+    new_image = py.transform.rotate(image_orig , rot)  
+    rect = new_image.get_rect()  
+    # set the rotated rectangle to the old center  
+    rect.center = old_center  
+    # drawing the rotated rectangle to the screen  
+    screen.blit(new_image , rect)  
+    # flipping the display after drawing everything  
+    py.display.flip()  
 
-        self.initUI()
-
-    def initUI(self):
-
-        # questo è il titolo della finestra: nel nostro caso sarà "Simulatore traffico" per esempio
-        self.master.title("Forma del veicolo")
-        self.pack(fill=BOTH, expand=1)
-
-        canvas = Canvas(self)
-        macchina = canvas.create_rectangle(150,200,170,300, fill='blue')
-        canvas.create_line(300, 35, 300, 200, dash=(4, 2))
-        canvas.create_line(55, 85, 155, 85, 105, 180, 55, 85)
-        canvas.pack(fill=BOTH, expand=1)
-        canvas.move(macchina, 30,30)
-
-def main():
-
-    root = Tk()
-    ex = Veicolo()
-    root.geometry("500x500+300+300")
-    root.mainloop()
-
-if __name__ == '__main__':
-    main()
+py.quit()  
