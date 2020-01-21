@@ -22,13 +22,13 @@ class Car(pygame.sprite.Sprite):
 		
 		
 		if(self.colore == 1):
-			self.image = pygame.image.load('C:/Users/PC/Desktop/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum.png')
+			self.image = pygame.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum.png')
 		elif(self.colore == 2):
-			self.image = pygame.image.load('C:/Users/PC/Desktop/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum1.png')
+			self.image = pygame.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum1.png')
 		elif(self.colore == 3):
-			self.image = pygame.image.load('C:/Users/PC/Desktop/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum2.png')
+			self.image = pygame.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum2.png')
 		elif(self.colore == 4):
-			self.image = pygame.image.load('C:/Users/PC/Desktop/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
+			self.image = pygame.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
 
 			#Dichiarazione punto di spawn a seconda del valore uscito casualmente
 		if(self.direzione == "SX"): 
