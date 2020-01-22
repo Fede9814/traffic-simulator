@@ -12,13 +12,14 @@ cardinali = [nord, sud, est, ovest]
 arrayDritti = [(325, 0), (475, 600), (800, 225), (0, 375)]
 arraySX = [(375, 0), (425, 600), (800, 275), (0, 325)]
 
+
 class Car(pygame.sprite.Sprite):
 	#Inizializzazione del mezzo
 	def __init__(self):
 		pygame.sprite.Sprite.__init__(self) 
 		self.entra = numpy.random.choice(cardinali, p=[0.25, 0.25, 0.25, 0.25])
 		self.direzione = numpy.random.choice(["SX", "DX"], p = [0.50, 0.50])
-		self.colore = numpy.random.choice([1, 2, 3, 4, 5, 6, 7, 8], p=[0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125])
+		self.colore = numpy.random.choice([1, 2, 3, 4, 5], p=[0.20, 0.20, 0.20, 0.20, 0.20 ])
 		
 		
 		if(self.colore == 1):
@@ -30,15 +31,10 @@ class Car(pygame.sprite.Sprite):
 		elif(self.colore == 4):
 			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
 		elif(self.colore == 4):
-			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
+			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/ciamioncino.png')
 		elif(self.colore == 5):
-			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')	
-		elif(self.colore == 6):
-			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
-		elif(self.colore == 7):
-			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
-		elif(self.colore == 8):
-			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
+			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/ciamioncino.png')	
+
 
 			#Dichiarazione punto di spawn a seconda del valore uscito casualmente
 		if(self.direzione == "SX"): 
