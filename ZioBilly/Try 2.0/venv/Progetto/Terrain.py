@@ -20,13 +20,11 @@ class Semaforo(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = location
 
-
-terreno = Terrain('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/terrain.png', [0,0])
-semaforo_nord = Semaforo('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_rossa.png', [280,160])
-semaforo_sud = Semaforo('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_rossa.png', [520,410])
-semaforo_est = Semaforo('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_rossa.png', [520,170])
-semaforo_ovest = Semaforo('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_rossa.png', [270,410])
-
+terreno = Terrain('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/terrain.png', [0,0])
+semaforo_nord = Semaforo('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_rossaN.png', [279, 138])
+semaforo_sud = Semaforo('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_rossa.png', [501, 402])
+semaforo_est = Semaforo('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_rossaE.png', [501,178])
+semaforo_ovest = Semaforo('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_rossaO.png', [239,402])
 
 screen = pg.display.set_mode((800, 600))
 clock = pg.time.Clock()
@@ -48,13 +46,13 @@ def ifgiallo(passa_N, passa_S, passa_E, passa_O):
     t_passa_E = passa_E
     t_passa_O = passa_O
     if (t_passa_N == True):
-        semaforo_nord.image = pg.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_gialla.png')
+        semaforo_nord.image = pg.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_gialla.png')
     if (t_passa_S == True):
-        semaforo_sud.image = pg.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_gialla.png')
+        semaforo_sud.image = pg.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_gialla.png')
     if (t_passa_E == True):
-        semaforo_est.image = pg.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_gialla.png')
+        semaforo_est.image = pg.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_giallaE.png')
     if (t_passa_O == True):
-        semaforo_ovest.image = pg.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_gialla.png')
+        semaforo_ovest.image = pg.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_giallaO.png')
         
     passa_N = False
     passa_S = False
@@ -63,36 +61,38 @@ def ifgiallo(passa_N, passa_S, passa_E, passa_O):
 
     return passa_N, passa_S, passa_E, passa_O, t_passa_N, t_passa_S, t_passa_E, t_passa_O
 
-
+#ok
 def ifsemaforo(passa_N, passa_S, passa_E, passa_O):
     if(passa_N == True):
         passa_N = False
         passa_S = False
         passa_E = True
-        semaforo_est.image = pg.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_verde.png')
-        semaforo_nord.image = pg.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_rossa.png')
+        semaforo_est.image = pg.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_verdeE.png')
+        semaforo_nord.image = pg.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_rossaN.png')
         passa_O = False
 
+#ok
     elif(passa_S == True):
         passa_N = False
         passa_S = False
         passa_E = False
         passa_O = True
-        semaforo_ovest.image = pg.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_verde.png')
-        semaforo_sud.image = pg.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_rossa.png')
+        semaforo_ovest.image = pg.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_verdeO.png')
+        semaforo_sud.image = pg.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_rossa.png')
+
 
     elif(passa_E == True):
         passa_N = False
         passa_S = True
-        semaforo_sud.image = pg.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_verde.png')
-        semaforo_est.image = pg.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_rossa.png')
+        semaforo_sud.image = pg.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_verde.png')
+        semaforo_est.image = pg.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_rossaE.png')
         passa_E = False
         passa_O = False
 
     elif(passa_O == True):
         passa_N = True
-        semaforo_nord.image = pg.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_verde.png')
-        semaforo_ovest.image = pg.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/luce_rossa.png')
+        semaforo_nord.image = pg.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_verdeN.png')
+        semaforo_ovest.image = pg.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/luce_rossaO.png')
         passa_S = False
         passa_E = False
         passa_O = False
@@ -103,11 +103,7 @@ semaforo = pg.USEREVENT + 2
 giallo = pg.USEREVENT + 3
 
 pg.time.set_timer(spawn, 2000)
-
-
 pg.time.set_timer(giallo, 1000)
-
-
 macchina = Car()
 all_cars = pg.sprite.Group(macchina)
 
@@ -129,6 +125,7 @@ while not done:
             passa_N, passa_S, passa_E, passa_O = ifsemaforo(t_passa_N, t_passa_S, t_passa_E, t_passa_O)
             pg.time.set_timer(giallo, 7000)
 
+    screen.set_alpha(None)
     screen.fill([255, 255, 255])
     screen.blit(terreno.image, terreno.rect)
 
@@ -147,7 +144,7 @@ while not done:
     
 
     pg.display.flip()
-    clock.tick(200)
+    clock.tick(800)
 
 
 pg.quit()

@@ -18,17 +18,27 @@ class Car(pygame.sprite.Sprite):
 		pygame.sprite.Sprite.__init__(self) 
 		self.entra = numpy.random.choice(cardinali, p=[0.25, 0.25, 0.25, 0.25])
 		self.direzione = numpy.random.choice(["SX", "DX"], p = [0.50, 0.50])
-		self.colore = numpy.random.choice([1, 2, 3, 4], p=[0.25, 0.25, 0.25, 0.25])
+		self.colore = numpy.random.choice([1, 2, 3, 4, 5, 6, 7, 8], p=[0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125])
 		
 		
 		if(self.colore == 1):
-			self.image = pygame.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum.png')
+			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum.png')
 		elif(self.colore == 2):
-			self.image = pygame.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum1.png')
+			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum1.png')
 		elif(self.colore == 3):
-			self.image = pygame.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum2.png')
+			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum2.png')
 		elif(self.colore == 4):
-			self.image = pygame.image.load('A:/DAM/Traffico/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
+			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
+		elif(self.colore == 4):
+			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
+		elif(self.colore == 5):
+			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')	
+		elif(self.colore == 6):
+			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
+		elif(self.colore == 7):
+			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
+		elif(self.colore == 8):
+			self.image = pygame.image.load('C:/Users/sanv3/Documents/GitHub/traffic-simulator/ZioBilly/Try 2.0/venv/img/macchinina_brum_brum3.png')
 
 			#Dichiarazione punto di spawn a seconda del valore uscito casualmente
 		if(self.direzione == "SX"): 
